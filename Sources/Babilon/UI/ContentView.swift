@@ -33,9 +33,9 @@ struct CameraView: View {
         VStack {
             Text("📸 Camera")
                 .font(.title)
-            Text("AVFoundation · 4K60 · HDR")
+            Text("Camera capture is not available yet.")
                 .foregroundStyle(.secondary)
-            Text("{-1,0,+1} Ternarity Filter Active")
+            Text("No camera feed or filter is running.")
                 .font(.caption)
                 .foregroundStyle(.cyan)
         }
@@ -47,7 +47,7 @@ struct MediaLibraryView: View {
         VStack {
             Text("📚 Media Library")
                 .font(.title)
-            Text("MEM8 Wave Memory · On-Device")
+            Text("Media import, storage, and recall are not available yet.")
                 .foregroundStyle(.secondary)
         }
     }
@@ -65,7 +65,10 @@ struct SettingsView: View {
                     Text(level.rawValue).tag(level)
                 }
             }
+            .disabled(true)
             .padding()
+            Text("Filters are not available yet.")
+                .foregroundStyle(.secondary)
         }
     }
 }
@@ -75,8 +78,9 @@ struct QuickCaptureView: View {
         VStack {
             Text("Babilon")
                 .font(.headline)
-            Button("Quick Capture") {}
+            Button("Quick Capture — unavailable") {}
                 .buttonStyle(.borderedProminent)
+                .disabled(true)
         }
         .padding()
     }
