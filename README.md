@@ -1,47 +1,47 @@
 # BABILON
 
-📱 **Sovereign Video App** — iOS + macOS · On-Device · Zero Cloud
+📱 **Video app prototype** — iOS + macOS
 
-Take pictures. Record video. QUANT voice generation. Animal translation.
-Powered by MLX-QUANT Metal kernels. All processing on-device. No server. No API key.
+Babilon currently provides a SwiftUI scaffold with tabs and a text draft field.
+Camera capture, animal translation, voice output, filters, and media storage are
+not implemented. Their controls are disabled and labeled unavailable.
 
-## Features
+## Current capabilities
 
-- 📸 **Camera**: AVFoundation native, 4K60, HDR
-- 🐾 **Quant-Animal-Translate**: Real-time animal vocalization → human language via MLX-QUANT ternary inference
-- 🎙️ **QUANT VoiceGen**: Ternary-quantized TTS on-device
-- 🎨 **{-1,0,+1} Filters**: Real-time ternary matrix frame quantization
-- 🧠 **MEM8 Wave Memory**: On-device wave interference media recall
-- 🔐 **Honesty-Auth**: 17-field personality vector, no passwords
+| Area | Status |
+| --- | --- |
+| Camera and quick capture | Unavailable; no camera feed or recording |
+| Animal listening and translation | Unavailable; no microphone capture, inferred meaning, or confidence score |
+| Voice | Text drafting only; generation and playback unavailable |
+| Filters | Unavailable; settings picker disabled |
+| Media library and memory | Unavailable; no import, storage, or recall |
+| Authentication | Not implemented |
 
-## Architecture
+The animal scaffold returns no result for audio input. Its design-time species
+vectors and fictional captions are not calibrated models or measured animal
+meaning. The unused `QuantVoiceGen` service is an experimental Apple speech
+prototype with an unfinished completion/audio-data contract; the UI does not
+invoke it. There is no connected MLX model inference.
+
+## Source layout
 
 ```
-SwiftUI App
+Sources/Babilon/
+├── QuantTikTokApp.swift          — App entry and shared state
 ├── Features/
-│   ├── Camera.swift          — AVFoundation capture pipeline
-│   ├── AnimalTranslator.swift — Real-time animal vocalization translation
-│   ├── VoiceGen.swift        — MLX-QUANT TTS engine
-│   ├── TernarityFilter.swift — {-1,0,+1} real-time quantizer
-│   └── QuickCapture.swift    — MenuBarExtra (macOS)
+│   └── AnimalTranslator.swift    — Unavailable animal-processing scaffold
 ├── Services/
-│   ├── MLXClient.swift       — MLX-QUANT Metal kernel bridge
-│   ├── AyeosClient.swift     — MEMNET protocol (:9876)
-│   ├── HonestAuth.swift      — 17-field personality vector
-│   └── MEM8Client.swift      — Wave memory recall
-├── UI/
-│   ├── ContentView.swift     — TabView main interface
-│   ├── AnimalView.swift      — Animal translate UI
-│   ├── CameraView.swift      — Camera + filter overlay
-│   └── LibraryView.swift     — Media library browser
-└── Resources/
-    ├── Info.plist
-    └── Babilon.entitlements
+│   └── QuantVoiceGen.swift       — Unconnected speech prototype
+└── UI/
+    ├── ContentView.swift         — Tabs and unavailable capture/library/filter views
+    ├── AnimalTranslateView.swift — Animal feature availability
+    └── VoiceGenView.swift        — Text draft and voice feature availability
 ```
 
-## Stack
+## Planned integrations
 
-- SwiftUI + AVFoundation
+The following projects are design references, not connected capabilities:
+
 - [MLX-QUANT](https://github.com/8b-is/MLX-QUANT) — Metal GPU kernels
 - [ayeOS](https://github.com/8b-is/ayeos) — MEMNET ternary daemon
 - [entheai](https://github.com/entropy-om/entheai) — Recursive agent

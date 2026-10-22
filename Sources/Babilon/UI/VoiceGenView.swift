@@ -2,13 +2,12 @@ import SwiftUI
 
 struct VoiceGenView: View {
     @State private var textInput = ""
-    @State private var generatedAudio = false
     
     var body: some View {
         VStack(spacing: 16) {
             Text("🎙️ QUANT VoiceGen")
                 .font(.title)
-            Text("MLX-QUANT TTS · On-Device · Zero Cloud")
+            Text("Voice generation and playback are not available yet.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             
@@ -17,18 +16,12 @@ struct VoiceGenView: View {
                 .border(.secondary)
                 .padding()
             
-            HStack {
-                Button("Generate Voice") {
-                    generatedAudio = true
-                }
+            Button("Generate Voice — unavailable") {}
                 .buttonStyle(.borderedProminent)
-                .disabled(textInput.isEmpty)
-                
-                if generatedAudio {
-                    Button("▶️ Play") {}
-                        .buttonStyle(.bordered)
-                }
-            }
+                .disabled(true)
+            Text("You can draft text here. No audio has been generated.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
         .padding()
     }

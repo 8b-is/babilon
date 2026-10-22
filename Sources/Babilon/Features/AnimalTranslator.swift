@@ -1,8 +1,7 @@
 import Foundation
 
 // 🐾 QUANT-ANIMAL-TRANSLATE
-// Real-time animal vocalization → human language translation
-// Powered by MLX-QUANT ternary inference on-device. Zero cloud.
+// Unimplemented prototype: no audio capture or inference is connected.
 
 enum AnimalSpecies: String, CaseIterable, Codable {
     case dog = "🐕 Dog"
@@ -32,7 +31,7 @@ enum AnimalSpecies: String, CaseIterable, Codable {
     }
     
     var ternarityMatrix: [Float] {
-        // Pre-computed {-1,0,+1} vocal feature vectors per species
+        // Illustrative design values, not calibrated audio features.
         switch self {
         case .dog: return [1,0,1,1,0,-1,1,0,1,-1,0,0,1,1,-1,1]
         case .cat: return [0,1,-1,0,1,-1,0,1,0,-1,1,0,-1,1,0,1]
@@ -48,6 +47,7 @@ enum AnimalSpecies: String, CaseIterable, Codable {
     }
 }
 
+// Fictional example captions for prototype design, never inferred from audio.
 enum AnimalVocalization: String, CaseIterable {
     case bark = "Bark / Woof"
     case whine = "Whine / Cry"
@@ -77,30 +77,26 @@ enum AnimalVocalization: String, CaseIterable {
 @Observable
 class AnimalTranslator {
     var selectedSpecies: AnimalSpecies = .dog
-    var isListening = false
+    private(set) var isListening = false
     var detectedVocalization: AnimalVocalization?
     var translation: String = ""
     var confidence: Float = 0.0
     var ternarityVisualization: [[Int]] = [] // {-1,0,+1} matrix display
     
-    // MLX-QUANT inference pipeline (on-device, Metal-accelerated)
-    func startListening() { isListening = true }
-    func stopListening() { isListening = false }
+    // Fail closed until capture and inference exist; never fabricate results.
+    func startListening() { clearResults() }
+    func stopListening() { clearResults() }
     
     func processAudioBuffer(_ buffer: [Float]) {
-        guard isListening else { return }
-        
-        // Step 1: Extract vocal features via FFT
-        // Step 2: Match against species ternarity matrix (cosine similarity)
-        // Step 3: Classify vocalization type
-        // Step 4: Generate translation via MLX-QUANT ternary embedding
-        // Step 5: Post-process through entheai agent (fan-out verification)
-        
-        // Scaffold: simulated response
-        confidence = Float.random(in: 0.7...0.99)
-        detectedVocalization = AnimalVocalization.allCases.randomElement()
-        translation = detectedVocalization?.translatedMeaning ?? "..."
-        ternarityVisualization = selectedSpecies.ternarityMatrix.chunked(into: 4).map { $0.map(Int.init) }
+        clearResults()
+    }
+
+    private func clearResults() {
+        isListening = false
+        confidence = 0
+        detectedVocalization = nil
+        translation = ""
+        ternarityVisualization = []
     }
 }
 
